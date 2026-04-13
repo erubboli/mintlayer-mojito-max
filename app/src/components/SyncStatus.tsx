@@ -75,6 +75,7 @@ export default function SyncStatus({ initialWalletHeight, initialNodeHeight, ini
     const indexerInterval = indexerEnabled ? setInterval(fetchIndexerStatus, 15_000) : null;
 
     const es = new EventSource('/api/block-stream');
+    es.onopen    = () => setConnected(true);
     es.onerror   = () => setConnected(false);
     es.onmessage = (e) => {
       try {
